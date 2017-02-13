@@ -153,7 +153,18 @@ void loop() {
       break;
 
       case mech:
-      
+        if(allianceColor == red){
+          for (int i=0; i<numPixels; i++){
+            if(i<59){
+              strip.setPixelColor(i,allianceColor);  
+            }
+            else{
+              strip.setPixelColor(i,blue);  
+            }
+          }
+          strip.show();
+          
+        }
       break;
 
   }
