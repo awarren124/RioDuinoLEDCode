@@ -34,6 +34,7 @@ void setup() {
   strip.begin();
   strip.show();
   strip.setBrightness(50);
+  cs = shooting;
 }
 
 void loop() {
@@ -137,10 +138,17 @@ void loop() {
       break;
 
     case shooting:
-      strip.begin();
       strip.show();
-      for(int i = 0; i < numPixels; i ++){
-        
+      for(int i = 0; i < 60; i ++){
+        strip.setPixelColor(i, yellow);
+        strip.setPixelColor(i - 10, off);
+
+        strip.setPixelColor(i + 50, yellow);
+        strip.setPixelColor(i + 50 - 10, off);
+
+        strip.setPixelColor(i + 100, yellow);
+        strip.setPixelColor(i + 100 - 10, off);
+        strip.show();
       }
       break;
 
@@ -179,7 +187,7 @@ void receiveEvent(int howMany) {
     allianceColor = red;
   } else if (receiveStr == "disableInit") {
     cs = inactive;
-  } else if (receiveStr == "recieveGear") {
+  } else if (receiveStr == "depositingGear") {
     cs = depositingGear;
   } else if (receiveStr == "shooting") {
     cs = shooting;
