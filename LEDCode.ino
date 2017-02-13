@@ -143,7 +143,7 @@ void loop() {
       for(int i = 0; i < numPixels; i ++){
         
       }
-
+      break;
   }
 }
 
