@@ -155,7 +155,7 @@ void loop() {
       case mech:
         if(allianceColor == red){
           for (int i=0; i<numPixels; i++){
-            if(i<59){
+            if(i<60){
               strip.setPixelColor(i,allianceColor);  
             }
             else{
@@ -163,7 +163,61 @@ void loop() {
             }
           }
           strip.show();
-          
+          for(int g=0; g<10; g++){
+            for(int i=1; i<11; i++){
+              strip.setPixelColor(59+i,allianceColor);
+              strip.show();
+              delay(5);
+            }
+            for(int i=1; i<21; i++){
+             strip.setPixelColor(69-i,blue);
+             strip.show();
+             delay(5);
+            }
+            for(int i=1; i<11; i++){
+              strip.setPixelColor(59+i,allianceColor);
+              strip.show();
+              delay(5);
+            }
+          }
+          for(int i=0; i<numPixels; i++){
+            strip.setPixelColor(i,allianceColor);
+            strip.show();
+            delay(100);
+          }
+        }
+        else{
+          for (int i=0; i<numPixels; i++){
+            if(i<60){
+              strip.setPixelColor(i,allianceColor);  
+            }
+            else{
+              strip.setPixelColor(i,red);  
+            }
+          }
+          strip.show();
+          for(int g=0; g<10; g++){
+            for(int i=1; i<11; i++){
+              strip.setPixelColor(59+i,allianceColor);
+              strip.show();
+              delay(5);
+            }
+            for(int i=1; i<21; i++){
+             strip.setPixelColor(69-i,red);
+             strip.show();
+             delay(5);
+            }
+            for(int i=1; i<11; i++){
+              strip.setPixelColor(59+i,allianceColor);
+              strip.show();
+              delay(5);
+            }
+          }
+          for(int i=0; i<numPixels; i++){
+            strip.setPixelColor(i,allianceColor);
+            strip.show();
+            delay(100);
+          }
         }
       break;
 
