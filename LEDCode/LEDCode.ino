@@ -34,7 +34,7 @@ void setup() {
   strip.begin();
   strip.show();
   strip.setBrightness(50);
-  cs = shooting;
+  cs = depositingGear;
 }
 
 void loop() {
@@ -102,44 +102,38 @@ void loop() {
       delay(10);
       break;
     case depositingGear:
-      for (int i = 0; i < numPixels; i++) {
 
 
 
-        for (int i = start % 7; i < numPixels; i += 7) {
-          strip.setPixelColor(i, red);
-        }
-        for (int i = (start + 1) % 7; i < numPixels; i += 7) {
-          strip.setPixelColor(i, orange);
-        }
-        for (int i = (start + 2) % 7; i < numPixels; i += 7) {
-          strip.setPixelColor(i, yellow);
-        }
-        for (int i = (start + 3) % 7; i < numPixels; i += 7) {
-          strip.setPixelColor(i, green);
-        }
-        for (int i = (start + 4) % 7; i < numPixels; i += 7) {
-          strip.setPixelColor(i, blue);
-        }
-        for (int i = (start + 5) % 7; i < numPixels; i += 7) {
-          strip.setPixelColor(i, magenta);
-        }
-        for (int i = (start + 6) % 7; i < numPixels; i += 7) {
-          strip.setPixelColor(i, purple);
-        }
-        strip.show();
+      for (int i = start % 7; i < numPixels; i += 7) {
+        strip.setPixelColor(i, red);
       }
-      mod += 1;
-      if (mod == 8) {
-        mod = 0;
+      for (int i = (start + 1) % 7; i < numPixels; i += 7) {
+        strip.setPixelColor(i, orange);
       }
+      for (int i = (start + 2) % 7; i < numPixels; i += 7) {
+        strip.setPixelColor(i, yellow);
+      }
+      for (int i = (start + 3) % 7; i < numPixels; i += 7) {
+        strip.setPixelColor(i, green);
+      }
+      for (int i = (start + 4) % 7; i < numPixels; i += 7) {
+        strip.setPixelColor(i, blue);
+      }
+      for (int i = (start + 5) % 7; i < numPixels; i += 7) {
+        strip.setPixelColor(i, magenta);
+      }
+      for (int i = (start + 6) % 7; i < numPixels; i += 7) {
+        strip.setPixelColor(i, purple);
+      }
+      strip.show();
       start += 1;
-      delay(1);
+      delay(50);
       break;
 
     case shooting:
       strip.show();
-      for(int i = 0; i < 60; i ++){
+      for (int i = 0; i < 60; i ++) {
         strip.setPixelColor(i, yellow);
         strip.setPixelColor(i - 10, off);
 
@@ -152,73 +146,73 @@ void loop() {
       }
       break;
 
-      case mech:
-        if(allianceColor == red){
-          for (int i=0; i<numPixels; i++){
-            if(i<60){
-              strip.setPixelColor(i,allianceColor);  
-            }
-            else{
-              strip.setPixelColor(i,blue);  
-            }
+    case mech:
+      if (allianceColor == red) {
+        for (int i = 0; i < numPixels; i++) {
+          if (i < 60) {
+            strip.setPixelColor(i, allianceColor);
           }
-          strip.show();
-          for(int g=0; g<10; g++){
-            for(int i=1; i<11; i++){
-              strip.setPixelColor(59+i,allianceColor);
-              strip.show();
-              delay(5);
-            }
-            for(int i=1; i<21; i++){
-             strip.setPixelColor(69-i,blue);
-             strip.show();
-             delay(5);
-            }
-            for(int i=1; i<11; i++){
-              strip.setPixelColor(59+i,allianceColor);
-              strip.show();
-              delay(5);
-            }
-          }
-          for(int i=0; i<numPixels; i++){
-            strip.setPixelColor(i,allianceColor);
-            strip.show();
-            delay(100);
+          else {
+            strip.setPixelColor(i, blue);
           }
         }
-        else{
-          for (int i=0; i<numPixels; i++){
-            if(i<60){
-              strip.setPixelColor(i,allianceColor);  
-            }
-            else{
-              strip.setPixelColor(i,red);  
-            }
-          }
-          strip.show();
-          for(int g=0; g<10; g++){
-            for(int i=1; i<11; i++){
-              strip.setPixelColor(59+i,allianceColor);
-              strip.show();
-              delay(5);
-            }
-            for(int i=1; i<21; i++){
-             strip.setPixelColor(69-i,red);
-             strip.show();
-             delay(5);
-            }
-            for(int i=1; i<11; i++){
-              strip.setPixelColor(59+i,allianceColor);
-              strip.show();
-              delay(5);
-            }
-          }
-          for(int i=0; i<numPixels; i++){
-            strip.setPixelColor(i,allianceColor);
+        strip.show();
+        for (int g = 0; g < 10; g++) {
+          for (int i = 1; i < 11; i++) {
+            strip.setPixelColor(59 + i, allianceColor);
             strip.show();
-            delay(100);
+            delay(5);
+          }
+          for (int i = 1; i < 21; i++) {
+            strip.setPixelColor(69 - i, blue);
+            strip.show();
+            delay(5);
+          }
+          for (int i = 1; i < 11; i++) {
+            strip.setPixelColor(59 + i, allianceColor);
+            strip.show();
+            delay(5);
           }
         }
+        for (int i = 0; i < numPixels; i++) {
+          strip.setPixelColor(i, allianceColor);
+          strip.show();
+          delay(100);
+        }
+      }
+      else {
+        for (int i = 0; i < numPixels; i++) {
+          if (i < 60) {
+            strip.setPixelColor(i, allianceColor);
+          }
+          else {
+            strip.setPixelColor(i, red);
+          }
+        }
+        strip.show();
+        for (int g = 0; g < 10; g++) {
+          for (int i = 1; i < 11; i++) {
+            strip.setPixelColor(59 + i, allianceColor);
+            strip.show();
+            delay(5);
+          }
+          for (int i = 1; i < 21; i++) {
+            strip.setPixelColor(69 - i, red);
+            strip.show();
+            delay(5);
+          }
+          for (int i = 1; i < 11; i++) {
+            strip.setPixelColor(59 + i, allianceColor);
+            strip.show();
+            delay(5);
+          }
+        }
+        for (int i = 0; i < numPixels; i++) {
+          strip.setPixelColor(i, allianceColor);
+          strip.show();
+          delay(100);
+        }
+      }
       break;
 
   }
