@@ -225,13 +225,13 @@ void loop() {
         }
           strip.show();
           for(int g=0; g<10; g++){
-            for(int i=1; i<20; i++){
-             strip.setPixelColor(69-i,blue);
+            for(int i=1; i<50; i++){
+             strip.setPixelColor(99-i,blue);
              strip.show();
              delay(15);
             }
-            for(int i=1; i<20; i++){
-              strip.setPixelColor(49+i,allianceColor);
+            for(int i=1; i<50; i++){
+              strip.setPixelColor(19+i,allianceColor);
               strip.show();
               delay(15);
             }
@@ -254,13 +254,13 @@ void loop() {
         }
           strip.show();
           for(int g=0; g<10; g++){
-            for(int i=1; i<20; i++){
-             strip.setPixelColor(69-i,red);
+            for(int i=1; i<50; i++){
+             strip.setPixelColor(99-i,red);
              strip.show();
              delay(15);
             }
-            for(int i=1; i<20; i++){
-              strip.setPixelColor(49+i,allianceColor);
+            for(int i=1; i<50; i++){
+              strip.setPixelColor(19+i,allianceColor);
               strip.show();
               delay(15);
             }
