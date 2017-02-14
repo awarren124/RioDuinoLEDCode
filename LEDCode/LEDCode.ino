@@ -176,7 +176,6 @@ void loop() {
             strip.show();
             delay(15);
           }
-          delay(100);
       }
       else {
         for (int i = 0; i < numPixels; i++) {
@@ -206,12 +205,8 @@ void loop() {
             strip.show();
             delay(15);
           }
-          delay(100);
         }
-      
-   
-          
-     
+      delay(100);
       break;
   }
 }
