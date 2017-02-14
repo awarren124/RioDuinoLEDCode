@@ -34,7 +34,7 @@ void setup() {
   strip.begin();
   strip.show();
   strip.setBrightness(50);
-  cs = depositingGear;
+  cs = mech;
 }
 
 void loop() {
@@ -147,7 +147,7 @@ void loop() {
       break;
 
     case mech:
-      if (allianceColor == red) {
+      /*if (allianceColor == red) {
         for (int i = 0; i < numPixels; i++) {
           if (i < 60) {
             strip.setPixelColor(i, allianceColor);
@@ -213,8 +213,69 @@ void loop() {
           delay(100);
         }
       }
-      break;
+      break;*/
+      if (allianceColor == red) {
+        for (int i = 0; i < numPixels; i++) {
+          if (i < 60) {
+            strip.setPixelColor(i, allianceColor);
+          }
+          else{
+            strip.setPixelColor(i, blue);
+          }
+          strip.show();
+          for(int g=0; g<10; g++){
+            for(int i=1; i<20; i++){
+             strip.setPixelColor(69-i,blue);
+             strip.show();
+             delay(15);
+            }
+            for(int i=1; i<20; i++){
+              strip.setPixelColor(49+i,allianceColor);
+              strip.show();
+              delay(15);
+            }
 
+          }
+          for(int i=0; i < numPixels; i++){
+            strip.setPixelColor(i,allianceColor);
+            strip.show();
+            delay(15);
+          }
+        }
+      }
+      else {
+        for (int i = 0; i < numPixels; i++) {
+          if (i < 60) {
+            strip.setPixelColor(i, allianceColor);
+          }
+          else{
+            strip.setPixelColor(i, red);
+          }
+          strip.show();
+          for(int g=0; g<10; g++){
+            for(int i=1; i<20; i++){
+             strip.setPixelColor(69-i,red);
+             strip.show();
+             delay(15);
+            }
+            for(int i=1; i<20; i++){
+              strip.setPixelColor(49+i,allianceColor);
+              strip.show();
+              delay(15);
+            }
+
+          }
+          for(int i=0; i < numPixels; i++){
+            strip.setPixelColor(i,allianceColor);
+            strip.show();
+            delay(15);
+          }
+        }
+      }
+   
+          
+     
+      break;
   }
 }
 
