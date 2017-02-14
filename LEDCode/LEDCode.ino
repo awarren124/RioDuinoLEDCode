@@ -147,73 +147,7 @@ void loop() {
       break;
 
     case mech:
-      /*if (allianceColor == red) {
-        for (int i = 0; i < numPixels; i++) {
-          if (i < 60) {
-            strip.setPixelColor(i, allianceColor);
-          }
-          else {
-            strip.setPixelColor(i, blue);
-          }
-        }
-        strip.show();
-        for (int g = 0; g < 10; g++) {
-          for (int i = 1; i < 11; i++) {
-            strip.setPixelColor(59 + i, allianceColor);
-            strip.show();
-            delay(5);
-          }
-          for (int i = 1; i < 21; i++) {
-            strip.setPixelColor(69 - i, blue);
-            strip.show();
-            delay(5);
-          }
-          for (int i = 1; i < 11; i++) {
-            strip.setPixelColor(59 + i, allianceColor);
-            strip.show();
-            delay(5);
-          }
-        }
-        for (int i = 0; i < numPixels; i++) {
-          strip.setPixelColor(i, allianceColor);
-          strip.show();
-          delay(100);
-        }
-      }
-      else {
-        for (int i = 0; i < numPixels; i++) {
-          if (i < 60) {
-            strip.setPixelColor(i, allianceColor);
-          }
-          else {
-            strip.setPixelColor(i, red);
-          }
-        }
-        strip.show();
-        for (int g = 0; g < 10; g++) {
-          for (int i = 1; i < 11; i++) {
-            strip.setPixelColor(59 + i, allianceColor);
-            strip.show();
-            delay(5);
-          }
-          for (int i = 1; i < 21; i++) {
-            strip.setPixelColor(69 - i, red);
-            strip.show();
-            delay(5);
-          }
-          for (int i = 1; i < 11; i++) {
-            strip.setPixelColor(59 + i, allianceColor);
-            strip.show();
-            delay(5);
-          }
-        }
-        for (int i = 0; i < numPixels; i++) {
-          strip.setPixelColor(i, allianceColor);
-          strip.show();
-          delay(100);
-        }
-      }
-      break;*/
+      
       if (allianceColor == red) {
         for (int i = 0; i < numPixels; i++) {
           if (i < 60) {
@@ -225,23 +159,24 @@ void loop() {
         }
           strip.show();
           for(int g=0; g<10; g++){
-            for(int i=1; i<50; i++){
-             strip.setPixelColor(99-i,blue);
+            for(int i=1; i<40; i++){
+             strip.setPixelColor(79-i,blue);
              strip.show();
              delay(15);
             }
-            for(int i=1; i<50; i++){
-              strip.setPixelColor(19+i,allianceColor);
+            for(int i=1; i<40; i++){
+              strip.setPixelColor(39+i,allianceColor);
               strip.show();
               delay(15);
             }
 
           }
-          for(int i=0; i < numPixels; i++){
+          for(int i=79; i < numPixels; i++){
             strip.setPixelColor(i,allianceColor);
             strip.show();
             delay(15);
           }
+          delay(100);
       }
       else {
         for (int i = 0; i < numPixels; i++) {
@@ -254,23 +189,24 @@ void loop() {
         }
           strip.show();
           for(int g=0; g<10; g++){
-            for(int i=1; i<50; i++){
-             strip.setPixelColor(99-i,red);
+            for(int i=1; i<40; i++){
+             strip.setPixelColor(79-i,red);
              strip.show();
              delay(15);
             }
-            for(int i=1; i<50; i++){
-              strip.setPixelColor(19+i,allianceColor);
+            for(int i=1; i<40; i++){
+              strip.setPixelColor(39+i,allianceColor);
               strip.show();
               delay(15);
             }
 
           }
-          for(int i=0; i < numPixels; i++){
+          for(int i=79; i < numPixels; i++){
             strip.setPixelColor(i,allianceColor);
             strip.show();
             delay(15);
           }
+          delay(100);
         }
       
    
