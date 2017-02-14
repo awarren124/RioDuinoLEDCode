@@ -222,6 +222,7 @@ void loop() {
           else{
             strip.setPixelColor(i, blue);
           }
+        }
           strip.show();
           for(int g=0; g<10; g++){
             for(int i=1; i<20; i++){
@@ -241,7 +242,6 @@ void loop() {
             strip.show();
             delay(15);
           }
-        }
       }
       else {
         for (int i = 0; i < numPixels; i++) {
@@ -251,6 +251,7 @@ void loop() {
           else{
             strip.setPixelColor(i, red);
           }
+        }
           strip.show();
           for(int g=0; g<10; g++){
             for(int i=1; i<20; i++){
@@ -271,7 +272,7 @@ void loop() {
             delay(15);
           }
         }
-      }
+      
    
           
      
