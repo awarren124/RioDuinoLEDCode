@@ -5,7 +5,7 @@
 #include <Wire.h>
 #define PIN 6
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(120, PIN, NEO_GRB + NEO_KHZ800);
-enum ColorState { inactive, autonomous, tank, mech, depositingGear, shooting};
+enum ColorState { inactive, autonomous, tank, mech, depositingGear, shooting, climbing};
 #define RED 0x00ff0000
 #define GREEN 0x0000ff00
 #define BLUE 0x000000ff
@@ -21,7 +21,7 @@ uint32_t blue = strip.Color(0, 0, 255);
 uint32_t magenta = strip.Color(255, 0, 255);
 uint32_t purple = strip.Color(128, 0, 128);
 uint32_t orange = strip.Color(255, 165, 0);
-uint32_t allianceColor = red;
+uint32_t allianceColor = blue;
 uint32_t white = strip.Color(255, 255, 255);
 
 uint32_t mechColors[] = {allianceColor, green, yellow, white};
@@ -42,7 +42,8 @@ void setup() {
   Wire.onReceive(receiveEvent);
   strip.begin();
   strip.show();
-  strip.setBrightness(12);
+  strip.setBrightness(70);
+  cs = climbing;
 }
 
 void loop() {
@@ -179,6 +180,12 @@ void loop() {
       strip.show();
       delay(60);
       break;
+    case climbing:
+      for(int i = 0; i < numPixels; i++){
+        strip.setPixelColor(i, random(0, 256), random(0, 256), random(0, 256));
+      }
+      strip.show();
+      break;
   }
 }
 
@@ -214,5 +221,7 @@ void receiveEvent(int howMany) {
     cs = depositingGear;
   } else if (receiveStr == "shooting") {
     cs = shooting;
+  } else if (receiveStr == "climbing") {
+    cs = climbing;
   }
 }
