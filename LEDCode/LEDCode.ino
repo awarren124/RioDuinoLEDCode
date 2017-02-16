@@ -10,7 +10,9 @@ enum ColorState { inactive, autonomous, tank, mech, depositingGear, shooting};
 #define GREEN 0x0000ff00
 #define BLUE 0x000000ff
 ColorState cs = inactive;
-int mod = 0;
+
+int brightness = 50;
+bool goingDown = true;
 
 uint32_t green = strip.Color(0, 255, 0);
 uint32_t red = strip.Color(255, 0, 0);
@@ -20,9 +22,16 @@ uint32_t magenta = strip.Color(255, 0, 255);
 uint32_t purple = strip.Color(128, 0, 128);
 uint32_t orange = strip.Color(255, 165, 0);
 uint32_t allianceColor = red;
+uint32_t white = strip.Color(255, 255, 255);
+
+uint32_t mechColors[] = {allianceColor, green, yellow, white};
+int mechSize = (sizeof(mechColors) / sizeof(uint32_t));
+int mechColorsNum = 0;
+
 int start = 0;
 uint32_t off = strip.Color(0, 0, 0);
 int numPixels = 120;
+int mod = numPixels / 2;
 bool even = false;
 
 void setup() {
@@ -33,11 +42,11 @@ void setup() {
   Wire.onReceive(receiveEvent);
   strip.begin();
   strip.show();
-  strip.setBrightness(50);
+  strip.setBrightness(12);
 }
 
 void loop() {
-
+  
   switch (cs) {
     case inactive:
       for (int i = 0; i < numPixels; i++) {
@@ -142,66 +151,33 @@ void loop() {
       break;
 
     case mech:
-
-      if (allianceColor == red) {
-        for (int i = 0; i < numPixels; i++) {
-          if (i < 60) {
-            strip.setPixelColor(i, allianceColor);
-          }
-          else {
-            strip.setPixelColor(i, blue);
-          }
-        }
-        strip.show();
-        for (int g = 0; g < 10; g++) {
-          for (int i = 1; i < 40; i++) {
-            strip.setPixelColor(79 - i, blue);
-            strip.show();
-            delay(15);
-          }
-          for (int i = 1; i < 40; i++) {
-            strip.setPixelColor(39 + i, allianceColor);
-            strip.show();
-            delay(15);
-          }
-
-        }
-        for (int i = 79; i < numPixels; i++) {
-          strip.setPixelColor(i, allianceColor);
-          strip.show();
-          delay(15);
+      for(int i = 0; i < numPixels; i++){
+        if(i % mod == 0){
+          strip.setPixelColor(i, mechColors[mechColorsNum]);
+        }else{
+          strip.setPixelColor(i, off);
         }
       }
-      else {
-        for (int i = 0; i < numPixels; i++) {
-          if (i < 60) {
-            strip.setPixelColor(i, allianceColor);
-          }
-          else {
-            strip.setPixelColor(i, red);
-          }
-        }
-        strip.show();
-        for (int g = 0; g < 10; g++) {
-          for (int i = 1; i < 40; i++) {
-            strip.setPixelColor(79 - i, red);
-            strip.show();
-            delay(15);
-          }
-          for (int i = 1; i < 40; i++) {
-            strip.setPixelColor(39 + i, allianceColor);
-            strip.show();
-            delay(15);
-          }
-
-        }
-        for (int i = 79; i < numPixels; i++) {
-          strip.setPixelColor(i, allianceColor);
-          strip.show();
-          delay(15);
-        }
+      if(!goingDown){
+        mod++;
+      }else{
+        mod--;
       }
-      delay(100);
+      if(mod > 4){
+        mod = 4;
+        mechColorsNum++;
+        goingDown = true;
+      }else if(mod < 1){
+        mod = 1;
+        mechColorsNum++;
+        goingDown = false;
+      }
+      if(mechColorsNum >= mechSize){
+          mechColorsNum = 0;
+      }
+      
+      strip.show();
+      delay(60);
       break;
   }
 }
