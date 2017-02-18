@@ -24,9 +24,6 @@ uint32_t orange = strip.Color(255, 165, 0);
 uint32_t allianceColor = blue;
 uint32_t white = strip.Color(255, 255, 255);
 
-uint32_t mechColors[] = {allianceColor, green, yellow, white};
-int mechSize = (sizeof(mechColors) / sizeof(uint32_t));
-int mechColorsNum = 0;
 
 int start = 0;
 uint32_t off = strip.Color(0, 0, 0);
@@ -43,7 +40,6 @@ void setup() {
   strip.begin();
   strip.show();
   strip.setBrightness(70);
-  cs = climbing;
 }
 
 void loop() {
@@ -154,7 +150,7 @@ void loop() {
     case mech:
       for(int i = 0; i < numPixels; i++){
         if(i % mod == 0){
-          strip.setPixelColor(i, mechColors[mechColorsNum]);
+          strip.setPixelColor(i, allianceColor);
         }else{
           strip.setPixelColor(i, off);
         }
@@ -166,15 +162,10 @@ void loop() {
       }
       if(mod > 4){
         mod = 4;
-        mechColorsNum++;
         goingDown = true;
       }else if(mod < 1){
         mod = 1;
-        mechColorsNum++;
         goingDown = false;
-      }
-      if(mechColorsNum >= mechSize){
-          mechColorsNum = 0;
       }
       
       strip.show();
