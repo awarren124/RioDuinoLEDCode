@@ -5,7 +5,7 @@
 #include <Wire.h>
 #define PIN 6
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(120, PIN, NEO_GRB + NEO_KHZ800);
-enum ColorState { inactive, autonomous, tank, mech, depositingGear, shooting, climbing};
+enum ColorState { inactive, autonomous, tank, mech, depositingGear, shooting, climbing, test};
 #define RED 0x00ff0000
 #define GREEN 0x0000ff00
 #define BLUE 0x000000ff
@@ -73,6 +73,9 @@ void loop() {
         strip.show();
       }
       for (int i = 0; i < numPixels; i++) {
+        if(cs != autonomous){
+          break;
+        }
         if (i % 2 == 0) {
           strip.setPixelColor(i, yellow);
           strip.show();
@@ -83,12 +86,16 @@ void loop() {
           strip.show();
           delay(10);
         }
+        
       }
       delay(1000);
       break;
     case tank:
 
       for (int i = 0; i < numPixels ; i++) {
+        if(cs != tank){
+          break;
+        }
         strip.setPixelColor(i, allianceColor);//colors[random(0, 5)]);
 
         strip.setPixelColor(numPixels - 1 - i, yellow);//colors[random(0, 5)]);
@@ -127,6 +134,9 @@ void loop() {
       for (int i = (start + 6) % 7; i < numPixels; i += 7) {
         strip.setPixelColor(i, purple);
       }
+      if(cs != depositingGear){
+          break;
+      }
       strip.show();
       start += 1;
       delay(50);
@@ -135,6 +145,9 @@ void loop() {
     case shooting:
       strip.show();
       for (int i = 0; i < 60; i ++) {
+        if(cs != shooting){
+          break;
+        }
         strip.setPixelColor(i, yellow);
         strip.setPixelColor(i - 10, off);
 
@@ -149,6 +162,9 @@ void loop() {
 
     case mech:
       for(int i = 0; i < numPixels; i++){
+        if(cs != mech){
+          break;
+        }
         if(i % mod == 0){
           strip.setPixelColor(i, allianceColor);
         }else{
@@ -214,5 +230,31 @@ void receiveEvent(int howMany) {
     cs = shooting;
   } else if (receiveStr == "climbing") {
     cs = climbing;
+  } else if (receiveStr == "red"){
+    cs = test;
+    for(int i = 0; i < numPixels; i++){
+      strip.setPixelColor(i, red);
+    }
+  } else if (receiveStr == "yellow"){
+    cs = test;
+    for(int i = 0; i < numPixels; i++){
+      strip.setPixelColor(i, yellow);
+    }
+  } else if (receiveStr == "green"){
+    cs = test;
+    for(int i = 0; i < numPixels; i++){
+      strip.setPixelColor(i, green);
+    }
+  } else if (receiveStr == "blue"){
+    cs = test;
+    for(int i = 0; i < numPixels; i++){
+      strip.setPixelColor(i, blue);
+    }
+  } else if (receiveStr == "purple"){
+    cs = test;
+    for(int i = 0; i < numPixels; i++){
+      strip.setPixelColor(i, purple);
+    }
   }
+  strip.show();
 }
