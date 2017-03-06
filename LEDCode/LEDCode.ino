@@ -9,7 +9,7 @@ enum ColorState { inactive, autonomous, tank, mech, depositingGear, shooting, cl
 #define RED 0x00ff0000
 #define GREEN 0x0000ff00
 #define BLUE 0x000000ff
-ColorState cs = inactive;
+ColorState cs = shooting;
 
 int brightness = 50;
 bool goingDown = true;
@@ -39,11 +39,15 @@ void setup() {
   Wire.onReceive(receiveEvent);
   strip.begin();
   strip.show();
-  strip.setBrightness(70);
+  strip.setBrightness(25);
+  //  for (int i = 0; i < numPixels; i++) {
+  //    strip.setPixelColor(i, blue);
+  //  }
+  //  strip.show();
 }
 
 void loop() {
-  
+
   switch (cs) {
     case inactive:
       for (int i = 0; i < numPixels; i++) {
@@ -71,9 +75,10 @@ void loop() {
       for (int i = 0; i < numPixels; i++) {
         strip.setPixelColor(i, off);
         strip.show();
+        delay(10);
       }
       for (int i = 0; i < numPixels; i++) {
-        if(cs != autonomous){
+        if (cs != autonomous) {
           break;
         }
         if (i % 2 == 0) {
@@ -86,14 +91,14 @@ void loop() {
           strip.show();
           delay(10);
         }
-        
+
       }
-      delay(1000);
+
       break;
     case tank:
 
       for (int i = 0; i < numPixels ; i++) {
-        if(cs != tank){
+        if (cs != tank) {
           break;
         }
         strip.setPixelColor(i, allianceColor);//colors[random(0, 5)]);
@@ -134,8 +139,8 @@ void loop() {
       for (int i = (start + 6) % 7; i < numPixels; i += 7) {
         strip.setPixelColor(i, purple);
       }
-      if(cs != depositingGear){
-          break;
+      if (cs != depositingGear) {
+        break;
       }
       strip.show();
       start += 1;
@@ -144,51 +149,75 @@ void loop() {
 
     case shooting:
       strip.show();
-      for (int i = 0; i < 60; i ++) {
-        if(cs != shooting){
-          break;
-        }
+      //      for (int i = 0; i < numPixels / 2; i ++) {
+      //        if(cs != shooting){
+      //          break;
+      //        }
+      ////        strip.setPixelColor(i, yellow);
+      ////        strip.setPixelColor(i - 10, off);
+      ////
+      ////        strip.setPixelColor(i + 50, yellow);
+      ////        strip.setPixelColor(i + 50 - 10, off);
+      ////
+      ////        strip.setPixelColor(i + 100, yellow);
+      ////        strip.setPixelColor(i + 100 - 10, off);
+      //        strip.setPixelColor(i, yellow);
+      //
+      for (int i = (int)(numPixels / 2) + 1; i < numPixels + 10; i++) {
         strip.setPixelColor(i, yellow);
-        strip.setPixelColor(i - 10, off);
-
-        strip.setPixelColor(i + 50, yellow);
-        strip.setPixelColor(i + 50 - 10, off);
-
-        strip.setPixelColor(i + 100, yellow);
-        strip.setPixelColor(i + 100 - 10, off);
+        //if (i -  (numPixels / 2) > 10) {
+         strip.setPixelColor(i - 10, off);
+        //}
         strip.show();
+        int temp = i;             
+        i = numPixels - i;
+        strip.setPixelColor(i, yellow);
+        strip.setPixelColor(i + 10, off);
+        i = temp;
+        delay(1);
       }
+/*
+      for (int i = (int)(numPixels / 2); i > 0; i--) {
+        strip.setPixelColor(i, yellow);
+        if (i < (numPixels / 2) - 10) {
+          strip.setPixelColor(i + 10, off);
+        }
+      }*/
+    
+//      delay(50);
       break;
 
+
+
     case mech:
-      for(int i = 0; i < numPixels; i++){
-        if(cs != mech){
+      for (int i = 0; i < numPixels; i++) {
+        if (cs != mech) {
           break;
         }
-        if(i % mod == 0){
+        if (i % mod == 0) {
           strip.setPixelColor(i, allianceColor);
-        }else{
+        } else {
           strip.setPixelColor(i, off);
         }
       }
-      if(!goingDown){
+      if (!goingDown) {
         mod++;
-      }else{
+      } else {
         mod--;
       }
-      if(mod > 4){
+      if (mod > 4) {
         mod = 4;
         goingDown = true;
-      }else if(mod < 1){
+      } else if (mod < 1) {
         mod = 1;
         goingDown = false;
       }
-      
+
       strip.show();
       delay(60);
       break;
     case climbing:
-      for(int i = 0; i < numPixels; i++){
+      for (int i = 0; i < numPixels; i++) {
         strip.setPixelColor(i, random(0, 256), random(0, 256), random(0, 256));
       }
       strip.show();
@@ -198,61 +227,67 @@ void loop() {
 
 void receiveEvent(int howMany) {
 
-  String receiveStr = "";
-  while ( Wire.available() > 0 ) {
-    char n = (char)Wire.read();
-    if (((int)n) > ((int)(' ')))
-      receiveStr += n;
-  }
-  if (receiveStr == "autoBlue") {
+  //  String receiveStr = "";
+  //  while ( Wire.available() > 0 ) {
+  //    char n = (char)Wire.read();
+  //    if (((int)n) > ((int)(' ')))
+  //      receiveStr += n;
+  //  }
+  int receiveInt = 6;
+  //  while (Wire.available() > 0){
+  //    int n = (int)Wire.read();
+  //    recieveInt += n;
+  //  }
+  receiveInt = (int)Wire.read();
+  if (receiveInt == 0) {
     cs = autonomous;
     allianceColor = blue;
-  } else if (receiveStr == "auto") {
+  } else if (receiveInt == 1) {
     cs = autonomous;
     allianceColor = red;
-  } else if (receiveStr == "tankBlue") {
+  } else if (receiveInt == 2) {
     cs = tank;
     allianceColor = blue;
-  } else if (receiveStr == "tankRed") {
+  } else if (receiveInt == 3) {
     cs = tank;
     allianceColor = red;
-  } else if (receiveStr == "mechBlue") {
+  } else if (receiveInt == 4) {
     cs = mech;
     allianceColor = blue;
-  } else if (receiveStr == "mechRed") {
+  } else if (receiveInt == 5) {
     cs = mech;
     allianceColor = red;
-  } else if (receiveStr == "disableInit") {
+  } else if (receiveInt == 6) {
     cs = inactive;
-  } else if (receiveStr == "depositingGear") {
+  } else if (receiveInt == 7) {
     cs = depositingGear;
-  } else if (receiveStr == "shooting") {
+  } else if (receiveInt == 8) {
     cs = shooting;
-  } else if (receiveStr == "climbing") {
+  } else if (receiveInt == 9) {
     cs = climbing;
-  } else if (receiveStr == "red"){
+  } else if (receiveInt == 10) {
     cs = test;
-    for(int i = 0; i < numPixels; i++){
+    for (int i = 0; i < numPixels; i++) {
       strip.setPixelColor(i, red);
     }
-  } else if (receiveStr == "yellow"){
+  } else if (receiveInt == 11) {
     cs = test;
-    for(int i = 0; i < numPixels; i++){
+    for (int i = 0; i < numPixels; i++) {
       strip.setPixelColor(i, yellow);
     }
-  } else if (receiveStr == "green"){
+  } else if (receiveInt == 12) {
     cs = test;
-    for(int i = 0; i < numPixels; i++){
+    for (int i = 0; i < numPixels; i++) {
       strip.setPixelColor(i, green);
     }
-  } else if (receiveStr == "blue"){
+  } else if (receiveInt == 13) {
     cs = test;
-    for(int i = 0; i < numPixels; i++){
+    for (int i = 0; i < numPixels; i++) {
       strip.setPixelColor(i, blue);
     }
-  } else if (receiveStr == "purple"){
+  } else if (receiveInt == 14) {
     cs = test;
-    for(int i = 0; i < numPixels; i++){
+    for (int i = 0; i < numPixels; i++) {
       strip.setPixelColor(i, purple);
     }
   }
